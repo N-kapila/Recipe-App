@@ -8,7 +8,7 @@ function App() {
 
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("chicken");
+  const [query, setQuery] = useState("rice");
 
   useEffect(() => {
     getRecipes();
@@ -20,7 +20,7 @@ function App() {
     );
     const data = await response.json();
     setRecipes(data.hits);
-    //console.log(data.hits);
+    console.log(data.hits);
   };
 
   const updateSearch = (e) => {
@@ -41,14 +41,17 @@ function App() {
           type="text"
           value={search}
           onChange={updateSearch}
+          placeholder="Enter Food Name"
         />
         <button className="btn-serach" type="submit">
           Search
         </button>
       </form>
       <div className="recipes">
-        {recipes.map((recipe) => (
+        {recipes.map((recipe, index) => (
           <Recipe
+            key={index.toString()}
+            id={index}
             title={recipe.recipe.label}
             calories={recipe.recipe.calories}
             image={recipe.recipe.image}
